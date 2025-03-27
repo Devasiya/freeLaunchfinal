@@ -1,6 +1,4 @@
-# app/routes/authRoutes.py
-
-from flask import Blueprint, request, jsonify, render_template, redirect, flash, session
+from flask import Blueprint, request, jsonify, render_template, redirect, flash, session, get_flashed_messages
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, create_access_token
 from app.models.client import Client
@@ -16,18 +14,23 @@ jwt = JWTManager()
 UPLOAD_FOLDER = 'public/uploads/'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
+# Ensure the upload folder exists
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 # GET: Client Registration Page
 @auth_bp.route('/register/client', methods=['GET'])
 def register_client_page():
-    return render_template("clientRegister.html", title="Client Registration", messages={"success": flash.get_flashed_messages(with_categories=True)})
+    messages = get_flashed_messages(with_categories=True)
+    return render_template("clientRegister.html", title="Client Registration", messages=messages)
 
 # POST: Register Client
 @auth_bp.route('/register/client', methods=['POST'])
 def register_client():
     if 'profilePhoto' not in request.files:
+        flash("No profile photo uploaded!", "error")
         return redirect('/auth/register/client')
 
     file = request.files['profilePhoto']
@@ -64,12 +67,14 @@ def register_client():
 # GET: Freelancer Registration Page
 @auth_bp.route('/register/freelancer', methods=['GET'])
 def register_freelancer_page():
-    return render_template("freelancerRegister.html", title="Freelancer Registration", messages={"success": flash.get_flashed_messages(with_categories=True)})
+    messages = get_flashed_messages(with_categories=True)
+    return render_template("freelancerRegister.html", title="Freelancer Registration", messages=messages)
 
 # POST: Register Freelancer
 @auth_bp.route('/register/freelancer', methods=['POST'])
 def register_freelancer():
     if 'profilePhoto' not in request.files:
+        flash("No profile photo uploaded!", "error")
         return redirect('/auth/register/freelancer')
 
     file = request.files['profilePhoto']
@@ -106,7 +111,8 @@ def register_freelancer():
 # GET: Login Page
 @auth_bp.route('/login', methods=['GET'])
 def login_page():
-    return render_template("login.html", title="Login", messages={"success": flash.get_flashed_messages(with_categories=True)})
+    messages = get_flashed_messages(with_categories=True)
+    return render_template("login.html", title="Login", messages=messages)
 
 # POST: Login
 @auth_bp.route('/login', methods=['POST'])
@@ -122,7 +128,7 @@ def login():
 
     if user and bcrypt.check_password_hash(user.password, password):
         access_token = create_access_token(identity={'email': user.email, 'user_type': 'client' if client else 'freelancer'})
-        session['user_id'] = str(user .id)
+        session['user_id'] = str(user.id)
         session['role'] = 'client' if client else 'freelancer'
         flash("Login successful!", "success")
         return redirect("/")

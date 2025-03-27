@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Doe - Reviews</title> <!-- Replace 'John Doe' with the actual freelancer's name -->
+    <link rel="stylesheet" href="/freelancerCss/reviews.css">
+</head>
+
+<body>
+    <div class="container mt-4">
+        <h1>John Doe - Reviews</h1> <!-- Replace 'John Doe' with the actual freelancer's name -->
+
+        <!-- Flash Messages -->
+        <div class="alert alert-danger" style="display: none;">Error message here</div>
+        <div class="alert alert-success" style="display: none;">Success message here</div>
+
+        <!-- Reviews Section -->
+        <div class="reviews-container">
+            <h3>All Reviews</h3>
+            <p>No reviews yet.</p> <!-- Display this if there are no reviews -->
+            <ul class="review-list">
+                <li class="review-item">
+                    <strong>Rating: 5 Stars ⭐</strong>
+                    <p>This is a sample review comment.</p> <!-- Replace with actual review comment -->
+                    <small>Reviewed by: Reviewer Username</small> <!-- Replace with actual reviewer username -->
+                    <div class="float-right">
+                        <a href="/api/freelancers/freelancerId/reviews/reviewId/edit"
+                            class="btn btn-warning btn-sm">Edit</a>
+                        <!-- Replace 'freelancerId' and 'reviewId' with actual values -->
+                        <form action="/api/freelancers/freelancerId/reviews/reviewId?_method=DELETE" method="POST"
+                            style="display:inline;"> <!-- Replace 'freelancerId' and 'reviewId' with actual values -->
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </div>
+                </li>
+                <!-- Repeat review items as needed -->
+            </ul>
+        </div>
+
+        <!-- Submit Review Section -->
+        <div class="review-form-container">
+            <h3>Submit a Review</h3>
+            <form action="/api/freelancers/freelancerId/reviews" method="POST">
+                <!-- Replace 'freelancerId' with actual value -->
+                <div class="form-group">
+                    <label for="rating">Rating:</label>
+                    <select id="rating" name="rating" class="form-control" required>
+                        <option value="">Select a rating</option>
+                        <option value="1">1 Star</option>
+                        <option value="2">2 Stars</option>
+                        <option value="3">3 Stars</option>
+                        <option value="4">4 Stars</option>
+                        <option value="5">5 Stars</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="comment">Comment:</label>
+                    <textarea id="comment" name="comment" class="form-control" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit Review</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

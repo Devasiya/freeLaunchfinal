@@ -2,8 +2,8 @@
 
 from flask import Blueprint, render_template, request, redirect, flash, jsonify
 from app.models.freelancer import Freelancer
-from app.models.projects import Project
-from app.models.reviews import Review
+from app.models.project import Project
+from app.models.review import Review
 from mongoengine import DoesNotExist
 
 freelancer_bp = Blueprint('freelancer', __name__)

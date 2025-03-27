@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John's Projects</title> <!-- Replace 'John' with the actual freelancer's first name -->
+    <link rel="stylesheet" href="/freelancerCss/projects.css">
+</head>
+
+<body>
+    <div class="container mt-4">
+        <h1 class="text-center">John's Projects</h1> <!-- Replace 'John' with the actual freelancer's first name -->
+
+        <!-- Flash Messages -->
+        <div class="alert alert-danger" style="display: none;">Error message here</div>
+        <div class="alert alert-success" style="display: none;">Success message here</div>
+
+        <a href="/api/freelancers/freelancerId/projects/add" class="btn btn-primary mb-3">Add New Project</a>
+        <!-- Replace 'freelancerId' with the actual freelancer ID -->
+
+        <p class="text-muted text-center">No projects found for this freelancer.</p>
+        <!-- Display this if there are no projects -->
+
+        <div class="project-card-container">
+            <div class="project-card">
+                <h2>Project Title Here</h2> <!-- Replace with actual project title -->
+                <p><strong>Description:</strong> Project description here.</p>
+                <!-- Replace with actual project description -->
+                <p><strong>Budget:</strong> $1000.00</p> <!-- Replace with actual project budget -->
+                <p><strong>Deadline:</strong> 12/31/2023</p> <!-- Replace with actual project deadline -->
+                <p><strong>Status:</strong> Open</p> <!-- Replace with actual project status -->
+
+                <div class="card-actions">
+                    <a href="/api/freelancers/freelancerId/projects/projectId/edit"
+                        class="btn btn-warning btn-sm">Edit</a>
+                    <!-- Replace 'freelancerId' and 'projectId' with actual values -->
+                    <form action="/api/freelancers/freelancerId/projects/projectId?_method=DELETE" method="POST"
+                        style="display:inline;"> <!-- Replace 'freelancerId' and 'projectId' with actual values -->
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </div>
+            </div>
+            <!-- Repeat project cards as needed -->
+        </div>
+
+        <a href="/api/freelancers" class="btn btn-secondary mt-3">Back to Freelancers</a>
+    </div>
+</body>
+
+</html>

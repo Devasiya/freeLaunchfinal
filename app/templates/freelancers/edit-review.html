@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Review</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/freelancerCss/edit-review.css"> <!-- Update the path as necessary -->
+</head>
+
+<body>
+    <div class="container mt-4">
+        <h1 class="text-center">Edit Review</h1>
+
+        <!-- Flash Messages -->
+        <div class="alert alert-danger" style="display: none;">Error message here</div>
+        <div class="alert alert-success" style="display: none;">Success message here</div>
+
+        <form action="/api/freelancers/freelancerId/reviews/reviewId/edit" method="POST">
+            <div class="form-group">
+                <label for="rating">Rating:</label>
+                <select id="rating" name="rating" class="form-control" required>
+                    <option value="1" selected>1 Star</option>
+                    <option value="2">2 Stars</option>
+                    <option value="3">3 Stars</option>
+                    <option value="4">4 Stars</option>
+                    <option value="5">5 Stars</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="comment">Comment:</label>
+                <textarea id="comment" name="comment" class="form-control" rows="4" required>Comment here</textarea>
+            </div>
+            <button type="submit" class="btn btn-success">Update Review</button>
+            <a href="/api/freelancers/freelancerId/reviews" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</body>
+
+</html>

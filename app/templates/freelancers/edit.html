@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Freelancer</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/freelancerCss/edit.css"> <!-- Update the path as necessary -->
+</head>
+
+<body>
+    <div class="container mt-4">
+        <h1 class="text-center">Edit Freelancer</h1>
+        <form action="/api/freelancers/freelancerId?_method=PUT" method="POST">
+            <div class="form-group">
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" name="firstName" class="form-control" value="First Name Here"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" name="lastName" class="form-control" value="Last Name Here" required>
+            </div>
+
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" class="form-control" value="Username Here" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" class="form-control" value="email@example.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" class="form-control"
+                    placeholder="Leave blank to keep current password">
+            </div>
+
+            <div class="form-group">
+                <label for="profilePhoto">Profile Photo URL:</label>
+                <input type="text" id="profilePhoto" name="profilePhoto" class="form-control"
+                    value="Profile Photo URL Here">
+            </div>
+
+            <h3>Location</h3>
+            <div class="form-group">
+                <label for="city">City:</label>
+                <input type="text" id="city" name="location[city]" class="form-control" value="City Here">
+            </div>
+            <div class="form-group">
+                <label for="state">State:</label>
+                <input type="text" id="state" name="location[state]" class="form-control" value="State Here">
+            </div>
+            <div class="form-group">
+                <label for="country">Country:</label>
+                <input type="text" id="country" name="location[country]" class="form-control" value="Country Here">
+            </div>
+            <div class="form-group">
+                <label for="pincode">Pincode:</label>
+                <input type="text" id="pincode" name="location[pincode]" class="form-control" value="Pincode Here">
+            </div>
+
+            <div class="form-group">
+                <label for="experience">Experience:</label>
+                <input type="text" id="experience" name="experience" class="form-control" value="Experience Here">
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" class="form-control">Description Here</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="phoneNumber">Phone Number:</label>
+                <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" value="Phone Number Here">
+            </div>
+
+            <div class="form-group">
+                <label for="skills">Skills (comma separated):</label>
+                <input type="text" id="skills" name="skills" class="form-control" value="Skill1, Skill2, Skill3">
+            </div>
+
+            <button type="submit" class="btn btn-success">Update Freelancer</button>
+            <a href="/api/freelancers/freelancerId" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</body>
+
+</html>
