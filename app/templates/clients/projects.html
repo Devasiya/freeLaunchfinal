@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ client.firstName }}'s Projects</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='clientCss/projects.css') }}">
+    <!-- Update the path as necessary -->
+</head>
+
+<body>
+    <div class="container">
+        <h1>{{ client.firstName }}'s Projects</h1>
+
+        <!-- Button to Add New Project -->
+        <a href="{{ url_for('client.add_project', client_id=client.id) }}" class="btn btn-primary">Add New Project</a>
+
+        {% if projects|length > 0 %}
+        <ul class="project-list">
+            {% for project in projects %}
+            <li class="project-item">
+                <h2>{{ project.title }}</h2>
+                <p><strong>Description:</strong> {{ project.description }}</p>
+                <p><strong>Budget:</strong> ${{ project.budget }}</p>
+                <p><strong>Deadline:</strong> {{ project.deadline.strftime('%Y-%m-%d') }}</p>
+                <p><strong>Status:</strong> {{ project.status }}</p>
+
+                <!-- Create Agreement Button for Open Projects -->
+                {% if project.status == "Open" %}
+                <a href="{{ url_for('agreement.create_agreement', projectId=project.id) }}"
+                    class="btn btn-primary">Create Agreement</a>
+
+                <!-- Freelancer Assignment Form -->
+                <form action="{{ url_for('client.assign_freelancer', client_id=client.id, project_id=project.id) }}"
+                    method="POST" style="display:inline;">
+                    <select name="freelancerId" class="freelancer-select" required>
+                        <option value="">Select a freelancer</option>
+                    </select>
+                    <button type="submit" class="btn btn-secondary">Assign Freelancer</button>
+                </form>
+                {% else %}
+                <a href="{{ url_for('agreement.view_agreement', project_id=project.id) }}" class="btn btn-info">View
+                    Agreement</a>
+                {% endif %}
+
+                <!-- Edit and Delete Buttons for each project -->
+                <a href="{{ url_for('client.edit_project', client_id=client.id, project_id=project.id) }}"
+                    class="btn btn-secondary">Edit</a>
+                <form action="{{ url_for('client.delete_project', client_id=client.id, project_id=project.id) }}"
+                    method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No projects found for this client.</p>
+        {% endif %}
+
+        <a href="{{ url_for('client.show_client', client_id=client.id) }}" class="btn btn-secondary">Back to Client</a>
+    </div>
+
+    <!-- Include jQuery and Select2 CSS/JS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.freelancer-select').select2({
+                ajax: {
+                    url: '/api/clients/freelancers/search', // Endpoint to fetch freelancers
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            q: params.term // Search term
+                        };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: data.map(freelancer => ({
+                                id: freelancer._id,
+                                text: `${freelancer.firstName} ${freelancer.lastName}`
+                            }))
+                        };
+                    },
+                    cache: true
+                },
+                minimumInputLength: 1 // Minimum characters to start searching
+            });
+        });
+    </script>
+</body>
+
+</html>

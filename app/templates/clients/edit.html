@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Client</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='clientCss/edit.css') }}">
+    <!-- Update the path as necessary -->
+</head>
+
+<body>
+    <div class="container mt-4">
+        <h1 class="text-center">Edit Client</h1>
+
+        <form action="{{ url_for('client.update_client', client_id=client.id) }}" method="POST">
+            <div class="form-group">
+                <label>First Name:</label>
+                <input type="text" name="firstName" class="form-control" value="{{ client.first_name or '' }}">
+            </div>
+
+            <div class="form-group">
+                <label>Last Name:</label>
+                <input type="text" name="lastName" class="form-control" value="{{ client.last_name or '' }}">
+            </div>
+
+            <div class="form-group">
+                <label>Email:</label>
+                <input type="email" name="email" class="form-control" value="{{ client.email }}" required>
+            </div>
+
+            <div class="form-group">
+                <label>Company Name:</label>
+                <input type="text" name="companyName" class="form-control" value="{{ client.company_name or '' }}">
+            </div>
+
+            <div class="form-group">
+                <label>Category:</label>
+                <input type="text" name="category" class="form-control" value="{{ client.category or '' }}">
+            </div>
+
+            <div class="form-group">
+                <label>Description:</label>
+                <textarea name="description" class="form-control">{{ client.description or '' }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Phone Number:</label>
+                <input type="text" name="phoneNumber" class="form-control" value="{{ client.phone_number or '' }}">
+            </div>
+
+            <div class="form-group">
+                <label>LinkedIn Link:</label>
+                <input type="url" name="linkedInLink" class="form-control" value="{{ client.linkedIn_link or '' }}">
+            </div>
+
+            <div class="form-group">
+                <label>Instagram Link:</label>
+                <input type="url" name="instagramLink" class="form-control" value="{{ client.instagram_link or '' }}">
+            </div>
+
+            <button type="submit" class="btn btn-success">Update</button>
+            <a href="{{ url_for('client.show_client', client_id=client.id) }}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</body>
+
+</html>

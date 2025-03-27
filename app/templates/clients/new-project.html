@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Project</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='clientCss/new-project.css') }}">
+    <!-- Update the path as necessary -->
+</head>
+
+<body>
+    <div class="container mt-4">
+        <h1 class="text-center">Add a New Project</h1>
+        <form action="{{ url_for('client.add_project', client_id=clientId) }}" method="POST">
+            <div class="form-group">
+                <label for="title">Project Title:</label>
+                <input type="text" id="title" name="title" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" class="form-control" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="budget">Budget:</label>
+                <input type="number" id="budget" name="budget" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="deadline">Deadline:</label>
+                <input type="date" id="deadline" name="deadline" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="status">Status:</label>
+                <select id="status" name="status" class="form-control" required>
+                    <option value="Open">Open</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Cancelled">Cancelled</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-success">Save Project</button>
+        </form>
+        <a href="{{ url_for('client.client_projects', client_id=clientId) }}" class="btn btn-secondary">Back to Client's
+            Projects</a>
+    </div>
+</body>
+
+</html>
